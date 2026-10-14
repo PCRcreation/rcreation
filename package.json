@@ -1,0 +1,27 @@
+{
+  "name": "portfolio-modern-admin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio website with a secure admin dashboard (Node.js, Express, MongoDB)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "setup": "node scripts/setup.js",
+    "seed": "node scripts/seed.js",
+    "reset-admin": "node scripts/seed.js --reset-password"
+  },
+  "engines": {
+    "node": ">=18.12"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.0"
+  }
+}

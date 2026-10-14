@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/admin/assets/admin.css">
+</head>
+<body>
+  <div class="bg-orb orb-one"></div>
+  <div class="bg-orb orb-two"></div>
+
+  <div class="layout">
+    <aside class="sidebar glass">
+      <a class="brand" href="/admin"><span>&lt;</span>Admin<span>/&gt;</span></a>
+
+      <nav class="side-nav" id="sideNav" aria-label="Dashboard sections">
+        <button class="nav-btn active" data-view="overview" type="button">📊 <span>Overview</span></button>
+        <button class="nav-btn" data-view="projects" type="button">🗂️ <span>Projects</span></button>
+        <button class="nav-btn" data-view="messages" type="button">✉️ <span>Messages</span><b class="badge" id="unreadBadge" hidden>0</b></button>
+        <button class="nav-btn" data-view="settings" type="button">⚙️ <span>Settings</span></button>
+      </nav>
+
+      <div class="side-foot">
+        <div class="who" id="whoami"></div>
+        <a class="btn small" href="/" target="_blank" rel="noopener">View website ↗</a>
+        <div class="row-btns">
+          <button class="btn small" id="themeToggle" type="button" aria-label="Toggle theme">☀️</button>
+          <button class="btn small danger" id="logoutBtn" type="button">Log out</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- ============ Overview ============ -->
+      <section class="view active" id="view-overview">
+        <div class="page-head">
+          <div><p class="eyebrow">DASHBOARD</p><h1>Welcome back 👋</h1><p>Here is what is happening on your portfolio.</p></div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="two-col">
+          <div class="panel glass">
+            <div class="panel-head"><h2>Latest messages</h2><button class="btn small" id="goMessages" type="button">View all</button></div>
+            <div id="recentMessages" class="msg-list"></div>
+          </div>
+          <div class="panel glass">
+            <h2>Quick actions</h2>
+            <div class="quick">
+              <button class="btn primary" id="quickAdd" type="button">＋ Add a project</button>
+              <button class="btn" id="quickMessages" type="button">✉️ Read messages</button>
+              <a class="btn" href="/" target="_blank" rel="noopener">🌐 Open my website</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Projects ============ -->
+      <section class="view" id="view-projects">
+        <div class="page-head">
+          <div><p class="eyebrow">PORTFOLIO</p><h1>Projects</h1><p>Add, edit, hide or delete the projects shown on your website.</p></div>
+          <button class="btn primary" id="addProject" type="button">＋ Add project</button>
+        </div>
+        <div id="projectList" class="project-list"></div>
+      </section>
+
+      <!-- ============ Messages ============ -->
+      <section class="view" id="view-messages">
+        <div class="page-head">
+          <div><p class="eyebrow">INBOX</p><h1>Contact messages</h1><p>Messages sent from the contact form on your website.</p></div>
+          <button class="btn" id="markAllRead" type="button">✓ Mark all as read</button>
+        </div>
+        <div class="toolbar">
+          <div class="tabs" id="msgTabs">
+            <button class="tab active" data-filter="all" type="button">All</button>
+            <button class="tab" data-filter="unread" type="button">Unread</button>
+            <button class="tab" data-filter="read" type="button">Read</button>
+          </div>
+          <input class="grow" id="msgSearch" type="search" placeholder="Search name, email or message…" maxlength="100" aria-label="Search messages">
+        </div>
+        <div class="panel glass" id="msgPanel">
+          <div id="msgList" class="msg-list"></div>
+        </div>
+        <div class="pager" id="msgPager" hidden>
+          <span id="pagerInfo"></span>
+          <div class="btns">
+            <button class="btn small" id="prevPage" type="button">← Prev</button>
+            <button class="btn small" id="nextPage" type="button">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Settings ============ -->
+      <section class="view" id="view-settings">
+        <div class="page-head">
+          <div><p class="eyebrow">ACCOUNT</p><h1>Settings</h1><p>Keep your admin account secure.</p></div>
+        </div>
+        <div class="settings-grid">
+          <div class="panel glass">
+            <h2>Change password</h2>
+            <div class="form-error" id="pwError" role="alert" hidden></div>
+            <form id="pwForm" novalidate>
+              <div class="field"><label for="curPw">Current password</label><input id="curPw" type="password" autocomplete="current-password" maxlength="200" required></div>
+              <div class="field"><label for="newPw">New password</label><input id="newPw" type="password" autocomplete="new-password" maxlength="72" required><span class="hint">At least 10 characters.</span></div>
+              <div class="field"><label for="newPw2">Repeat new password</label><input id="newPw2" type="password" autocomplete="new-password" maxlength="72" required></div>
+              <button class="btn primary" id="pwBtn" type="submit">Update password</button>
+            </form>
+          </div>
+          <div class="panel glass">
+            <h2>Security info</h2>
+            <p class="muted" id="sessionInfo"></p>
+            <ul class="muted info-list">
+              <li>Passwords are stored as bcrypt hashes - never as plain text.</li>
+              <li>Your login lives in a secure, HttpOnly cookie.</li>
+              <li>After 5 wrong passwords the account is locked for 15 minutes.</li>
+              <li>Changing your password logs out all other devices.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toasts" aria-live="polite"></div>
+
+  <script src="/admin/assets/common.js"></script>
+  <script src="/admin/assets/dashboard.js"></script>
+</body>
+</html>
